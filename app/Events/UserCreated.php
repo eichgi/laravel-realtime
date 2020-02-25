@@ -33,7 +33,7 @@ class UserCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        app('log')->debug($this->user);
+        app('log')->debug("User created {$this->user->name}");
         return new Channel('users');
     }
 }

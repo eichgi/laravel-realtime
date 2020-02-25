@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 
 class UserDestroyed implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets;
     public $user;
 
     /**
@@ -33,7 +33,7 @@ class UserDestroyed implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        app('log')->debug($this->user);
+        app('log')->debug("User deleted {$this->user->name}");
         return new Channel('users');
     }
 }

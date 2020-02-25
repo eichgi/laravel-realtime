@@ -33,7 +33,7 @@ class UserUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        app('log')->debug($this->user);
+        app('log')->debug("User updated {$this->user->name}");
         return new Channel('users');
     }
 }
