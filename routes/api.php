@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/
 
 Route::apiResource('users', 'Api\UserController');
+
+Route::post('login', function (Request $request) {
+    $token = User::find(1)->createToken('personal');
+
+    return $token->plainTextToken;
+});
+
+Route::middleware('auth:airlock')->get('/user', function (Request $request) {
+    return $request->user();
+});
