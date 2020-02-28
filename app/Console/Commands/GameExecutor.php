@@ -21,7 +21,7 @@ class GameExecutor extends Command
      * @var string
      */
     protected $description = 'Starts executing the game';
-    private $time = 15;
+    private $time = 10;
 
     /**
      * Create a new command instance.
@@ -49,9 +49,9 @@ class GameExecutor extends Command
             if ($this->time === 0) {
                 $this->time = 'Waiting to start';
                 broadcast(new RemainingTimeChanged($this->time));
-                broadcast(new WinnerNumberGenerated(mt_rand(1, 12)));
-                sleep(5);
-                $this->time = 15;
+                broadcast(new WinnerNumberGenerated(mt_rand(1, 2)));
+                sleep(4);
+                $this->time = 10;
             }
         }
     }
