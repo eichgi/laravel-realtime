@@ -35,7 +35,6 @@ class GreetingSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        app('log')->debug($this->message);
         return new PrivateChannel("chat.greet.{$this->user->id}");
     }
 }

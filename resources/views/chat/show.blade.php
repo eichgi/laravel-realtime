@@ -77,7 +77,6 @@
                 let element = document.createElement('li');
 
                 element.innerText = e.user.name + ': ' + e.message;
-                element.setAttribute('id', e.user.id);
 
                 messagesElement.appendChild(element);
             });
@@ -108,5 +107,17 @@
                     console.log(res);
                 })
         }
+    </script>
+
+    <script>
+        Echo.private('chat.greet.{{auth()->id()}}')
+            .listen('GreetingSent', e => {
+                let element = document.createElement('li');
+
+                element.innerText = e.message;
+                element.classList.add('text-success');
+
+                messagesElement.appendChild(element);
+            });
     </script>
 @endpush
