@@ -25,8 +25,7 @@
                                 <form>
                                     <div class="row py-3">
                                         <div class="col-10">
-                                            <label for="message">Escribe tu mensaje</label>
-                                            <input id="message" type="text" class="form-control">
+                                            <input id="message" type="text" class="form-control" placeholder="Escribe tu mensaje">
                                         </div>
                                         <div class="col-2">
                                             <button id="send" type="submit" class="btn btn-primary btn-block">Send
@@ -38,10 +37,7 @@
                             <div class="col-2">
                                 <p><strong>Online Now!</strong></p>
                                 <ul id="users" class="list-unstyled overflow-auto text-info"
-                                    style="height: 45vh;">
-                                    <li>Tester 1</li>
-                                    <li>Tester 2</li>
-                                </ul>
+                                    style="height: 45vh;"></ul>
                             </div>
                         </div>
                     </div>
@@ -53,6 +49,26 @@
 
 @push('scripts')
     <script>
+        const usersElement = document.getElementById('users');
 
+        Echo.join('chat')
+            .here(users => {
+                users.forEach(user => {
+                    let element = document.createElement('li');
+                    element.innerText = user.name;
+                    element.setAttribute('id', user.id);
+                    usersElement.appendChild(element);
+                });
+            })
+            .joining(user => {
+                let element = document.createElement('li');
+                element.innerText = user.name;
+                element.setAttribute('id', user.id);
+                usersElement.appendChild(element);
+            })
+            .leaving(user => {
+                let element = document.getElementById(user.id);
+                element.parentNode.removeChild(element);
+            });
     </script>
 @endpush
