@@ -35,7 +35,7 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        app('log')->debug("{$this->user->name} sent {$this->message}");
+        app('log')->debug("{$this->user->name} sent: {$this->message}");
         return new PresenceChannel('chat');
     }
 }

@@ -25,7 +25,8 @@
                                 <form>
                                     <div class="row py-3">
                                         <div class="col-10">
-                                            <input id="message" type="text" class="form-control" placeholder="Escribe tu mensaje">
+                                            <input id="message" type="text" class="form-control"
+                                                   placeholder="Escribe tu mensaje">
                                         </div>
                                         <div class="col-2">
                                             <button id="send" type="submit" class="btn btn-primary btn-block">Send
@@ -70,5 +71,22 @@
                 let element = document.getElementById(user.id);
                 element.parentNode.removeChild(element);
             });
+    </script>
+
+    <script>
+        const sendElement = document.getElementById('send');
+        const messageElement = document.getElementById('message');
+
+        sendElement.addEventListener('click', e => {
+            e.preventDefault();
+
+            window.axios
+                .post('/chat/message', {message: messageElement.value})
+                .then(res => {
+                    console.log(res);
+                });
+
+            messageElement.value = '';
+        });
     </script>
 @endpush
