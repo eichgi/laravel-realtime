@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @push('styles')
     <style>
-
+        #users > li {
+            cursor: pointer;
+        }
     </style>
 @endpush
 @section('content')
@@ -55,6 +57,7 @@
                 users.forEach(user => {
                     let element = document.createElement('li');
                     element.innerText = user.name;
+                    element.setAttribute('onclick', 'greetUser("' + user.id + '")');
                     element.setAttribute('id', user.id);
                     usersElement.appendChild(element);
                 });
@@ -62,6 +65,7 @@
             .joining(user => {
                 let element = document.createElement('li');
                 element.innerText = user.name;
+                element.setAttribute('onclick', 'greetUser("' + user.id + '")');
                 element.setAttribute('id', user.id);
                 usersElement.appendChild(element);
             })
@@ -94,5 +98,15 @@
 
             messageElement.value = '';
         });
+    </script>
+
+    <script>
+        const greetUser = (id) => {
+            window.axios
+                .post('/chat/greet/' + id)
+                .then(res => {
+                    console.log(res);
+                })
+        }
     </script>
 @endpush
